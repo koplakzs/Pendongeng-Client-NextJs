@@ -1,3 +1,4 @@
+import CardDongeng from "@/components/CardDongeng";
 import {
   Card,
   CardContent,
@@ -5,9 +6,10 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import Link from "next/link";
 import { FaPlus } from "react-icons/fa6";
 
-interface dongengInterface {
+export interface dongengInterface {
   title: string;
   dongeng: string;
   user: string;
@@ -54,28 +56,20 @@ export default function Dongeng() {
   ];
 
   return (
-    <main className="relative min-h-screen flex flex-col items-center gap-y-5 pt-24 md:pt-32 ">
+    <main className="relative min-h-screen flex flex-col items-center gap-y-5 pt-24 md:pt-32 lg:pe-5 ">
       {data.map((item, index) => (
-        <Card
+        <CardDongeng
           key={index}
-          className="rounded-xl hover:scale-105 duration-500 transition-all ease-out cursor-pointer"
-        >
-          <CardHeader>
-            <CardTitle> {item.title} </CardTitle>
-          </CardHeader>
-          <CardContent className="pb-2">
-            <p className="line-clamp-2"> {item.dongeng} </p>
-          </CardContent>
-
-          <CardFooter className="text-gray-500 text-xs  md:text-sm">
-            <p className="text-end w-full">
-              Post By {item.user} At {item.createdAt}{" "}
-            </p>
-          </CardFooter>
-        </Card>
+          title={item.title}
+          user={item.user}
+          dongeng={item.dongeng}
+          createdAt={item.createdAt}
+        />
       ))}
       <section className="fixed right-6 bottom-28 border-2 border-gray-950 p-2 rounded-lg cursor-pointer hover:bg-gray-950 hover:text-gray-100  duration-500 transition-all ease-out md:bottom-auto md:top-32 ">
-        <FaPlus className="text-3xl lg:text-4xl" />
+        <Link href={"/dongeng/create"}>
+          <FaPlus className="text-3xl lg:text-4xl" />
+        </Link>
       </section>
     </main>
   );
